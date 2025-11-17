@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
+from scripts import streamlit_utils
 
 def show():
     st.header("📊 Streamlit Basics")
@@ -51,11 +52,7 @@ st.json({'name': 'Alice', 'age': 25})
         """, language="python")
         
         st.markdown("**Output:**")
-        df = pd.DataFrame({
-            'Name': ['Alice', 'Bob', 'Charlie'],
-            'Age': [25, 30, 35],
-            'City': ['New York', 'London', 'Paris']
-        })
+        df = streamlit_utils.generate_sample_dataframe()
         st.dataframe(df)
         
         col1, col2, col3 = st.columns(3)
@@ -157,10 +154,7 @@ with tab3:
         tab1, tab2, tab3 = st.tabs(["📈 Chart", "📋 Data", "⚙️ Settings"])
         with tab1:
             st.write("Chart content goes here")
-            chart_data = pd.DataFrame(
-                np.random.randn(20, 3),
-                columns=['A', 'B', 'C']
-            )
+            chart_data = streamlit_utils.generate_chart_data()
             st.line_chart(chart_data)
         with tab2:
             st.write("Data table goes here")
@@ -191,10 +185,7 @@ st.area_chart(chart_data)
         """, language="python")
         
         st.markdown("**Output:**")
-        chart_data = pd.DataFrame(
-            np.random.randn(20, 3),
-            columns=['A', 'B', 'C']
-        )
+        chart_data = streamlit_utils.generate_chart_data()
         
         tab1, tab2, tab3 = st.tabs(["Line Chart", "Bar Chart", "Area Chart"])
         with tab1:
@@ -263,10 +254,7 @@ st.success("Done!")
         num_cols = st.slider("Number of columns", 1, 5, 3)
         
         if st.button("Generate Data", key="generate_data"):
-            random_data = pd.DataFrame(
-                np.random.randn(num_rows, num_cols),
-                columns=[f'Column {i+1}' for i in range(num_cols)]
-            )
+            random_data = streamlit_utils.generate_random_data(num_rows, num_cols)
             
             st.write(f"Generated {num_rows} rows × {num_cols} columns:")
             st.dataframe(random_data)
