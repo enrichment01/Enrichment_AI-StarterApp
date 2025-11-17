@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+from scripts import ollama_utils
 
 def show():
     st.header("🦙 Ollama Python SDK Basics")
@@ -270,28 +271,23 @@ except Exception as e:
         st.markdown("**Test your Ollama setup:**")
         
         if st.button("Check Ollama Status", key="check_ollama"):
-            try:
-                import ollama
-                
-                with st.spinner("Checking Ollama..."):
-                    # Try to list models
-                    models = ollama.list()
+            status_info = ollama_utils.check_ollama_status()
+            
+            with st.spinner("Checking Ollama..."):
+                if status_info['status'] == 'success':
+                    st.success(f"✅ {status_info['message']}")
+                    st.write(f"Available models: {len(status_info['models'])}")
                     
-                    st.success("✅ Ollama is running!")
-                    st.write(f"Available models: {len(models.get('models', []))}")
-                    
-                    if models.get('models'):
+                    if status_info['models']:
                         st.markdown("**Your Models:**")
-                        for model in models['models']:
+                        for model in status_info['models']:
                             st.write(f"- {model['name']}")
                     else:
                         st.info("No models found. Run `ollama pull llama2` to get started!")
-                        
-            except ImportError:
-                st.error("❌ Ollama Python SDK not installed. Run: `pip install ollama`")
-            except Exception as e:
-                st.error(f"❌ Cannot connect to Ollama: {str(e)}")
-                st.info("Make sure Ollama is running. Visit https://ollama.ai for installation.")
+                else:
+                    st.error(f"❌ {status_info['message']}")
+                    if 'SDK not installed' not in status_info['message']:
+                        st.info("Make sure Ollama is running. Visit https://ollama.ai for installation.")
     
     with col2:
         st.markdown("**Code:**")

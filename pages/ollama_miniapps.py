@@ -1,5 +1,6 @@
 import streamlit as st
 import time
+from scripts import text_generator, chatbot, text_analyzer
 
 def show():
     st.header("🚀 Ollama AI MiniApps")
@@ -53,37 +54,25 @@ def show():
                 if not prompt:
                     st.warning("Please enter a prompt!")
                 else:
-                    try:
-                        import ollama
+                    with st.spinner(f"Generating with {model}..."):
+                        result = text_generator.generate_text(
+                            model=model,
+                            prompt=prompt,
+                            temperature=temperature,
+                            max_tokens=max_tokens
+                        )
                         
-                        with st.spinner(f"Generating with {model}..."):
-                            response = ollama.generate(
-                                model=model,
-                                prompt=prompt,
-                                options={
-                                    'temperature': temperature,
-                                    'num_predict': max_tokens,
-                                }
-                            )
-                            
+                        if result['status'] == 'success':
                             st.success("✅ Generated!")
                             st.markdown("### Result:")
-                            st.write(response['response'])
+                            st.write(result['response'])
                             
                             # Show stats
                             with st.expander("📊 Generation Stats"):
-                                st.write(f"**Model:** {model}")
-                                st.write(f"**Temperature:** {temperature}")
-                                st.write(f"**Max Tokens:** {max_tokens}")
-                                if 'total_duration' in response:
-                                    duration_sec = response['total_duration'] / 1e9
-                                    st.write(f"**Duration:** {duration_sec:.2f}s")
-                    
-                    except ImportError:
-                        st.error("❌ Ollama Python SDK not installed. Run: `pip install ollama`")
-                    except Exception as e:
-                        st.error(f"❌ Error: {str(e)}")
-                        st.info("Make sure Ollama is running and the model is installed.")
+                                for key, value in result['stats'].items():
+                                    st.write(f"**{key.replace('_', ' ').title()}:** {value}")
+                        else:
+                            st.error(f"❌ {result['message']}")
         
         with col2:
             st.markdown("### 💡 Tips")
@@ -162,34 +151,26 @@ def show():
                 message_placeholder = st.empty()
                 full_response = ""
                 
-                try:
-                    import ollama
-                    
-                    # Prepare messages
-                    messages = [{"role": "system", "content": system_prompt}]
-                    messages.extend(st.session_state.messages)
-                    
-                    # Stream response
-                    stream = ollama.chat(
-                        model=st.session_state.chatbot_model,
-                        messages=messages,
-                        stream=True,
-                        options={'temperature': temperature}
-                    )
-                    
-                    for chunk in stream:
-                        if 'message' in chunk and 'content' in chunk['message']:
-                            full_response += chunk['message']['content']
-                            message_placeholder.markdown(full_response + "▌")
-                    
-                    message_placeholder.markdown(full_response)
-                    
-                except ImportError:
-                    full_response = "❌ Ollama Python SDK not installed. Run: `pip install ollama`"
-                    message_placeholder.markdown(full_response)
-                except Exception as e:
-                    full_response = f"❌ Error: {str(e)}\n\nMake sure Ollama is running and the model is installed."
-                    message_placeholder.markdown(full_response)
+                # Prepare messages
+                messages = chatbot.prepare_chat_messages(
+                    st.session_state.messages,
+                    system_prompt
+                )
+                
+                # Stream response
+                stream = chatbot.generate_chat_response(
+                    model=st.session_state.chatbot_model,
+                    messages=messages,
+                    temperature=temperature,
+                    stream=True
+                )
+                
+                for chunk in stream:
+                    if 'message' in chunk and 'content' in chunk['message']:
+                        full_response += chunk['message']['content']
+                        message_placeholder.markdown(full_response + "▌")
+                
+                message_placeholder.markdown(full_response)
             
             # Add assistant response to history
             st.session_state.messages.append({"role": "assistant", "content": full_response})
@@ -250,59 +231,31 @@ def show():
                 if not text_to_analyze:
                     st.warning("Please enter text to analyze!")
                 else:
-                    # Create prompt based on analysis type
-                    prompts = {
-                        "Summarize": f"Summarize the following text concisely:\n\n{text_to_analyze}",
-                        "Extract Key Points": f"Extract the key points from the following text as a bulleted list:\n\n{text_to_analyze}",
-                        "Sentiment Analysis": f"Analyze the sentiment of the following text (positive, negative, or neutral) and explain why:\n\n{text_to_analyze}",
-                        "Find Main Topics": f"Identify the main topics discussed in the following text:\n\n{text_to_analyze}",
-                        "Translate to Simple Language": f"Rewrite the following text in simple, easy-to-understand language:\n\n{text_to_analyze}",
-                        "Grammar Check": f"Check the following text for grammar errors and suggest corrections:\n\n{text_to_analyze}"
-                    }
-                    
-                    prompt = prompts[analysis_type]
-                    
-                    try:
-                        import ollama
+                    with st.spinner(f"Analyzing with {model}..."):
+                        result = text_analyzer.analyze_text(
+                            model=model,
+                            text=text_to_analyze,
+                            analysis_type=analysis_type
+                        )
                         
-                        with st.spinner(f"Analyzing with {model}..."):
-                            response = ollama.generate(
-                                model=model,
-                                prompt=prompt,
-                                options={'temperature': 0.3}  # Lower temp for analysis
-                            )
-                            
+                        if result['status'] == 'success':
                             st.success("✅ Analysis Complete!")
                             st.markdown("### Result:")
-                            st.write(response['response'])
+                            st.write(result['response'])
                             
                             # Show stats
                             with st.expander("📊 Analysis Stats"):
-                                st.write(f"**Analysis Type:** {analysis_type}")
-                                st.write(f"**Model:** {model}")
-                                st.write(f"**Input Length:** {len(text_to_analyze)} characters")
-                                if 'total_duration' in response:
-                                    duration_sec = response['total_duration'] / 1e9
-                                    st.write(f"**Duration:** {duration_sec:.2f}s")
-                    
-                    except ImportError:
-                        st.error("❌ Ollama Python SDK not installed. Run: `pip install ollama`")
-                    except Exception as e:
-                        st.error(f"❌ Error: {str(e)}")
-                        st.info("Make sure Ollama is running and the model is installed.")
+                                for key, value in result['stats'].items():
+                                    st.write(f"**{key.replace('_', ' ').title()}:** {value}")
+                        else:
+                            st.error(f"❌ {result['message']}")
         
         with col2:
             st.markdown("### 📝 Sample Texts")
             
-            sample_texts = {
-                "News Article": "Scientists have discovered a new species of butterfly in the Amazon rainforest. The butterfly, named Morpho amazonicus, has distinctive blue and green wings that shimmer in the sunlight. Researchers believe this discovery could provide insights into the region's biodiversity.",
-                "Product Review": "I recently purchased this laptop and I'm extremely impressed. The build quality is excellent, the screen is vibrant, and the battery life exceeds expectations. However, the keyboard could be better and it's a bit pricey.",
-                "Technical Text": "The algorithm utilizes a recursive approach to traverse the binary tree in depth-first manner. By implementing memoization, we can optimize the time complexity from O(2^n) to O(n), significantly improving performance for large datasets."
-            }
-            
-            for title, text in sample_texts.items():
+            for title in text_analyzer.SAMPLE_TEXTS.keys():
                 if st.button(f"Load: {title}", key=f"sample_{title}"):
-                    st.session_state.analyze_text = text
+                    st.session_state.analyze_text = text_analyzer.get_sample_text(title)
                     st.rerun()
     
     # Code Examples
