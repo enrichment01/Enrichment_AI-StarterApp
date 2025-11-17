@@ -4,12 +4,12 @@ An interactive starter application showcasing Python, Streamlit, and Ollama inte
 
 ## 📚 Features
 
-This application includes 4 comprehensive pages:
+This application includes over 50 comprehensive example pages organized into 4 main categories:
 
-1. **🐍 Python Basics** - Core Python programming concepts with interactive examples
-2. **📊 Streamlit Basics** - Building interactive web apps with Streamlit
-3. **🦙 Ollama Python SDK Basics** - Working with Ollama's Python SDK for local LLMs
-4. **🚀 Ollama AI MiniApps** - Complete mini-applications powered by Ollama:
+1. **🐍 Python Basics** (16 pages) - Core Python programming concepts with interactive examples
+2. **📊 Streamlit Basics** (18 pages) - Building interactive web apps with Streamlit
+3. **🦙 Ollama Python SDK Basics** (19 pages) - Working with Ollama's Python SDK for local LLMs
+4. **🚀 Ollama AI MiniApps** (3 apps) - Complete mini-applications powered by Ollama:
    - 📝 Text Generator
    - 💬 Chatbot
    - 🔍 Text Analyzer
@@ -58,40 +58,42 @@ Use the sidebar to navigate between different pages:
 - **🦙 Ollama Python SDK Basics** - Understand Ollama integration
 - **🚀 Ollama AI MiniApps** - Try complete AI applications
 
-### Python Basics
+### Python Basics (16 Pages)
 
 Interactive examples covering:
-- Data types (numbers, strings, lists, dictionaries)
-- List operations and comprehensions
-- Functions and parameters
-- Loops (for, while)
-- Classes and objects
-- Interactive temperature converter
+- **Fundamentals**: Data types, lists, loops, functions, classes
+- **Advanced Concepts**: Dictionary operations, string manipulation, file handling
+- **Error Handling**: Exceptions and try-except blocks
+- **Advanced Features**: List comprehensions, lambda functions, decorators
+- **Standard Library**: Modules and imports, JSON handling, regular expressions
+- **Interactive Tools**: Temperature converter
 
-### Streamlit Basics
+### Streamlit Basics (18 Pages)
 
 Learn Streamlit through examples:
-- Text elements and formatting
-- Data display (DataFrames, metrics, JSON)
-- Input widgets (text, number, slider, select, checkbox, button)
-- Layout (columns, tabs)
-- Charts (line, bar, area)
-- Status elements and notifications
-- Progress indicators
-- Interactive data dashboard
+- **Display Elements**: Text elements, status elements, data display, charts
+- **Input Widgets**: Text input, number input, sliders, select boxes, checkboxes, buttons
+- **Layout Components**: Columns, tabs, containers, sidebar widgets
+- **Advanced Features**: File upload/download, session state, forms, expanders
+- **Media**: Images, video, audio, camera input
+- **Optimization**: Caching data, performance tips
+- **Customization**: Custom HTML/CSS components
+- **Navigation**: Multipage app structure
+- **Interactive Examples**: Progress indicators, data dashboard
 
-### Ollama Python SDK Basics
+### Ollama Python SDK Basics (19 Pages)
 
 Comprehensive guide to Ollama:
-- Installation and setup
-- Basic chat completions
-- Streaming responses
-- Text generation API
-- Model management
-- Advanced parameters (temperature, top-p, top-k)
-- System messages
-- Error handling
-- Connection testing
+- **Getting Started**: Installation, basic usage, model management
+- **Core Features**: Chat completions, streaming, text generation, system messages
+- **Advanced Techniques**: Multi-turn conversations, context window management
+- **Prompt Engineering**: Prompt templates, response parsing, structured output
+- **Embeddings**: Semantic search, similarity matching, vector operations
+- **Model Selection**: Model comparison, custom model creation
+- **Optimization**: Performance tuning, batch processing
+- **Specialized**: Vision models for image understanding
+- **Parameters**: Temperature, top-p, top-k, and advanced settings
+- **Error Handling**: Connection testing, retry logic, troubleshooting
 
 ### Ollama AI MiniApps
 
