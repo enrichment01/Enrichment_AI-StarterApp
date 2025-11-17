@@ -117,3 +117,4 @@ urls = re.findall(url_pattern, text_with_urls)
 st.write("**Extracted URLs:**")
 for url in urls:
     st.write(f"- {url}")
+

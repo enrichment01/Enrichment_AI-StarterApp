@@ -58,10 +58,11 @@ st.write("Unique remainders (mod 5):", remainders)
 st.subheader("Complex Example: Pythagorean Triples")
 
 triples = [(a, b, c) for a in range(1, 15) 
-           for b in range(a, 15) 
-           for c in range(b, 15) 
-           if a**2 + b**2 == c**2]
+            for b in range(a, 15) 
+            for c in range(b, 15) 
+            if a**2 + b**2 == c**2]
 
 st.write("Pythagorean triples (a² + b² = c²):")
 for triple in triples[:5]:  # Show first 5
     st.write(f"{triple[0]}² + {triple[1]}² = {triple[2]}²")
+

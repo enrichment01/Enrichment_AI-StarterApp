@@ -1,5 +1,7 @@
 import streamlit as st
 
+
+
 st.header("✂️ String Manipulation — Python Basics")
 st.markdown("Common string operations and methods in Python.")
 
@@ -41,3 +43,4 @@ words = ["Python", "is", "fun"]
 sentence = " ".join(words)
 
 st.write("Joined:", sentence)
+

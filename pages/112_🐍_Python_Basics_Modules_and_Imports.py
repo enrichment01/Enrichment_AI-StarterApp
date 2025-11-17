@@ -1,14 +1,18 @@
 import streamlit as st
+import math
+import random
+import datetime
+import json
+from collections import Counter
+
+
+
 
 st.header("📦 Modules and Imports — Python Basics")
 st.markdown("Understanding Python modules, packages, and import statements.")
 
 # Standard library imports
 st.subheader("Standard Library Modules")
-
-import math
-import random
-import datetime
 
 st.write("π (pi):", math.pi)
 st.write("Square root of 16:", math.sqrt(16))
@@ -62,9 +66,6 @@ for module, description in modules.items():
 # Example: Using multiple modules
 st.subheader("Practical Example")
 
-import json
-from collections import Counter
-
 # Sample data
 data = {
     "name": "Python Tutorial",
@@ -88,3 +89,4 @@ st.subheader("Module Information")
 st.write("Math module location:", math.__file__)
 st.write("Math module name:", math.__name__)
 st.write("Available in math:", dir(math)[:10], "...")
+

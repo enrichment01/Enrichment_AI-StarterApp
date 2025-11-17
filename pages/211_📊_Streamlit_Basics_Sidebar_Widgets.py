@@ -117,3 +117,4 @@ st.info("""
 - **Organization**: Group related controls together
 - **State**: Sidebar state persists across pages
 """)
+

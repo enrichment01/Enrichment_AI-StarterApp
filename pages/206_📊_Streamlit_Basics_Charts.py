@@ -36,3 +36,4 @@ with tab2:
     st.bar_chart(chart_data)
 with tab3:
     st.area_chart(chart_data)
+

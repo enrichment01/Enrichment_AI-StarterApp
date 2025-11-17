@@ -24,7 +24,7 @@ with col1:
         
         st.write("Statistics:")
         st.dataframe(random_data.describe())
-
+        
 with col2:
     st.markdown("**Code:**")
     CODE = """
@@ -49,3 +49,4 @@ st.dataframe(data.describe())
 """
     st.code(CODE, language="python")
     helper_streamlit.run_code(CODE)
+

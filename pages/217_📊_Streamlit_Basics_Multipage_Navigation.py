@@ -80,14 +80,14 @@ with col1:
 
 with col2:
     st.page_link(
-        "pages/21_📊_Streamlit_Basics_Text_Elements.py", 
+        "pages/200_📊_Streamlit_Basics_Text_Elements.py", 
         label="📝 Text Elements",
         use_container_width=True
     )
 
 with col3:
     st.page_link(
-        "pages/27_📊_Streamlit_Basics_Charts.py",
+        "pages/206_📊_Streamlit_Basics_Charts.py",
         label="📈 Charts",
         use_container_width=True
     )

@@ -1,7 +1,11 @@
 import streamlit as st
+from functools import reduce
 
-st.header("λ Lambda Functions — Python Basics")
-st.markdown("Anonymous functions and functional programming concepts.")
+
+
+
+    st.header("λ Lambda Functions — Python Basics")
+    st.markdown("Anonymous functions and functional programming concepts.")
 
 # Basic lambda
 st.subheader("Basic Lambda Functions")
@@ -50,8 +54,6 @@ st.write("Even numbers:", evens)
 # Lambda in reduce()
 st.subheader("Lambda with reduce()")
 
-from functools import reduce
-
 product = reduce(lambda x, y: x * y, numbers)
 st.write("Product of", numbers, "=", product)
 
@@ -84,3 +86,4 @@ st.info("""
 - Function is reused
 - Function needs documentation
 """)
+

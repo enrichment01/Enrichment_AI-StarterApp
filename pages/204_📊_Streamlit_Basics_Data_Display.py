@@ -41,3 +41,4 @@ with col3:
     st.metric("Wind Speed", "15 km/h", "3 km/h")
 
 st.json({'name': 'Alice', 'age': 25, 'city': 'New York'})
+

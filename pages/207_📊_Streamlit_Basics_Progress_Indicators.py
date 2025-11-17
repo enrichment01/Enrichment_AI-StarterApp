@@ -33,3 +33,4 @@ if st.button("Run Progress Demo", key="progress_demo"):
         time.sleep(0.02)
     status_text.text("Complete!")
     st.success("Done! 🎉")
+

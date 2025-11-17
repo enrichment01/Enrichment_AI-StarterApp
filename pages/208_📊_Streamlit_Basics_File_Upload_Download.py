@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import json
 
 st.header("📤 File Upload/Download — Streamlit Basics")
 st.markdown("Uploading and downloading files in Streamlit applications.")
@@ -71,7 +72,6 @@ st.download_button(
 )
 
 # JSON download
-import json
 
 json_data = {
     "users": [
@@ -96,3 +96,4 @@ st.info("""
 - **Multiple files**: Set `accept_multiple_files=True`
 - **File types**: Use `type` parameter to restrict
 """)
+

@@ -64,9 +64,12 @@ with st.form("detailed_form"):
     if submit:
         st.success("✅ Survey submitted!")
         skills = []
-        if python: skills.append("Python")
-        if javascript: skills.append("JavaScript")
-        if sql: skills.append("SQL")
+        if python:
+            skills.append("Python")
+        if javascript:
+            skills.append("JavaScript")
+        if sql:
+            skills.append("SQL")
         
         st.write("**Results:**")
         st.write(f"- Name: {name}")
@@ -129,3 +132,4 @@ st.info("""
 - **Clear button**: Use second submit button for clearing
 - **Multiple forms**: Can have many forms on one page
 """)
+

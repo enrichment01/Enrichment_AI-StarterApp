@@ -2,6 +2,9 @@ import streamlit as st
 import tempfile
 import os
 
+
+
+
 st.header("📁 File Handling — Python Basics")
 st.markdown("Reading and writing files in Python.")
 
@@ -62,3 +65,4 @@ for mode, desc in modes.items():
 # Cleanup
 os.unlink(temp_file)
 st.info("💡 Temporary file cleaned up")
+

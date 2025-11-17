@@ -80,3 +80,4 @@ exceptions = {
 
 for exc, desc in exceptions.items():
     st.write(f"**{exc}**: {desc}")
+

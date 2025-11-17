@@ -99,3 +99,4 @@ st.info("""
 # Debug view
 with st.expander("🔍 View Session State"):
     st.write(st.session_state)
+

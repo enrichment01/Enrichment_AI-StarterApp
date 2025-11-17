@@ -1,6 +1,9 @@
 import streamlit as st
 import json
 
+from lib.helper_streamlit import show_code
+
+
 st.header("📋 Working with JSON — Python Basics")
 st.markdown("Parsing, creating, and manipulating JSON data in Python.")
 
@@ -118,3 +121,4 @@ operations = {
 
 for func, desc in operations.items():
     st.write(f"**{func}**: {desc}")
+
