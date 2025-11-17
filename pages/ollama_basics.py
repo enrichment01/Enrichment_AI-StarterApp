@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-from scripts import ollama_utils
+from scripts import ollama_utils, code_utils
 
 def show():
     st.header("🦙 Ollama Python SDK Basics")
@@ -29,22 +29,9 @@ def show():
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-import ollama
-
-# Simple chat
-response = ollama.chat(
-    model='llama2',
-    messages=[
-        {
-            'role': 'user',
-            'content': 'Why is the sky blue?'
-        }
-    ]
-)
-
-print(response['message']['content'])
-            """, language="python")
+            CODE = code_utils.get_code("ollama_basics/basic_chat.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Explanation:**")
@@ -64,24 +51,9 @@ print(response['message']['content'])
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-import ollama
-
-# Streaming chat
-stream = ollama.chat(
-    model='llama2',
-    messages=[
-        {
-            'role': 'user',
-            'content': 'Tell me a story'
-        }
-    ],
-    stream=True
-)
-
-for chunk in stream:
-    print(chunk['message']['content'], end='')
-            """, language="python")
+            CODE = code_utils.get_code("ollama_basics/streaming.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Explanation:**")
@@ -101,17 +73,9 @@ for chunk in stream:
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-import ollama
-
-# Generate text
-response = ollama.generate(
-    model='llama2',
-    prompt='Write a haiku about coding'
-)
-
-print(response['response'])
-            """, language="python")
+            CODE = code_utils.get_code("ollama_basics/generate.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Explanation:**")
@@ -127,59 +91,28 @@ print(response['response'])
         st.subheader("Working with Models")
         
         st.markdown("**List Available Models:**")
-        st.code("""
-import ollama
-
-# List all models
-models = ollama.list()
-
-for model in models['models']:
-    print(f"Name: {model['name']}")
-    print(f"Size: {model['size']}")
-    print(f"Modified: {model['modified_at']}")
-    print("---")
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/list_models.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Pull a Model:**")
-        st.code("""
-import ollama
-
-# Pull a specific model
-ollama.pull('mistral')
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/pull_model.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Delete a Model:**")
-        st.code("""
-import ollama
-
-# Delete a model
-ollama.delete('model_name')
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/delete_model.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
     
     # Advanced Parameters
     with st.expander("⚙️ Advanced Parameters"):
         st.subheader("Customizing Model Behavior")
         
         st.markdown("**Temperature, Top-P, and More:**")
-        st.code("""
-import ollama
-
-response = ollama.chat(
-    model='llama2',
-    messages=[
-        {
-            'role': 'user',
-            'content': 'Write a creative story'
-        }
-    ],
-    options={
-        'temperature': 0.8,  # Higher = more creative
-        'top_p': 0.9,        # Nucleus sampling
-        'top_k': 40,         # Top-k sampling
-        'num_predict': 100,  # Max tokens to generate
-    }
-)
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/advanced_parameters.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Parameter Meanings:**")
         st.markdown("""
@@ -198,23 +131,9 @@ response = ollama.chat(
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-import ollama
-
-response = ollama.chat(
-    model='llama2',
-    messages=[
-        {
-            'role': 'system',
-            'content': 'You are a helpful coding assistant.'
-        },
-        {
-            'role': 'user',
-            'content': 'How do I reverse a string in Python?'
-        }
-    ]
-)
-            """, language="python")
+            CODE = code_utils.get_code("ollama_basics/system_messages.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Explanation:**")
@@ -232,27 +151,9 @@ response = ollama.chat(
     with st.expander("🛡️ Error Handling"):
         st.subheader("Handling Errors Gracefully")
         
-        st.code("""
-import ollama
-
-try:
-    response = ollama.chat(
-        model='llama2',
-        messages=[
-            {
-                'role': 'user',
-                'content': 'Hello!'
-            }
-        ]
-    )
-    print(response['message']['content'])
-    
-except ollama.ResponseError as e:
-    print(f"Error: {e.error}")
-    
-except Exception as e:
-    print(f"Unexpected error: {e}")
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/error_handling.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Common Errors:**")
         st.markdown("""
@@ -291,22 +192,9 @@ except Exception as e:
     
     with col2:
         st.markdown("**Code:**")
-        st.code("""
-import ollama
-
-try:
-    # List available models
-    models = ollama.list()
-    
-    print("✅ Ollama is running!")
-    print(f"Models: {len(models['models'])}")
-    
-    for model in models['models']:
-        print(f"- {model['name']}")
-        
-except Exception as e:
-    print(f"❌ Error: {e}")
-        """, language="python")
+        CODE = code_utils.get_code("ollama_basics/check_ollama_status.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
     
     # Resources
     st.markdown("---")
