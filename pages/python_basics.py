@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from scripts import python_utils
+from scripts import python_utils, code_utils
 
 def show():
     st.header("🐍 Python Basics")
@@ -15,30 +15,9 @@ def show():
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-# Numbers
-integer_num = 42
-float_num = 3.14
-
-# Strings
-text = "Hello, Python!"
-
-# Boolean
-is_active = True
-
-# List
-fruits = ["apple", "banana", "cherry"]
-
-# Dictionary
-person = {
-    "name": "John",
-    "age": 30,
-    "city": "New York"
-}
-
-# Tuple
-coordinates = (10, 20)
-            """, language="python")
+            CODE = code_utils.get_code("python_basics/data_types.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Output:**")
@@ -60,22 +39,9 @@ coordinates = (10, 20)
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-# Creating a list
-numbers = [1, 2, 3, 4, 5]
-
-# Append
-numbers.append(6)
-
-# List comprehension
-squares = [x**2 for x in numbers]
-
-# Slicing
-first_three = numbers[:3]
-
-# Filter
-evens = [x for x in numbers if x % 2 == 0]
-            """, language="python")
+            CODE = code_utils.get_code("python_basics/list_operations.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Output:**")
@@ -95,21 +61,9 @@ evens = [x for x in numbers if x % 2 == 0]
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-def greet(name, greeting="Hello"):
-    return f"{greeting}, {name}!"
-
-def calculate_area(length, width):
-    return length * width
-
-def get_stats(numbers):
-    return {
-        "sum": sum(numbers),
-        "avg": sum(numbers) / len(numbers),
-        "max": max(numbers),
-        "min": min(numbers)
-    }
-            """, language="python")
+            CODE = code_utils.get_code("python_basics/functions.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Output:**")
@@ -127,25 +81,9 @@ def get_stats(numbers):
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-# For loop
-result = []
-for i in range(5):
-    result.append(i * 2)
-
-# While loop
-countdown = []
-count = 5
-while count > 0:
-    countdown.append(count)
-    count -= 1
-
-# Enumerate
-fruits = ["apple", "banana", "cherry"]
-indexed_fruits = []
-for idx, fruit in enumerate(fruits):
-    indexed_fruits.append(f"{idx}: {fruit}")
-            """, language="python")
+            CODE = code_utils.get_code("python_basics/loops.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Output:**")
@@ -163,22 +101,9 @@ for idx, fruit in enumerate(fruits):
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-    
-    def introduce(self):
-        return f"Hi, I'm {self.name} and I'm {self.age} years old"
-    
-    def have_birthday(self):
-        self.age += 1
-        return f"Happy birthday! Now {self.age}"
-
-# Create instance
-person = Person("Alice", 25)
-            """, language="python")
+            CODE = code_utils.get_code("python_basics/classes.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Output:**")
@@ -202,9 +127,6 @@ person = Person("Alice", 25)
             st.success(f"{temp_celsius}°C = {temp_fahrenheit}°F")
     
     with col2:
-        st.code("""
-# Temperature Converter
-celsius = 25.0
-fahrenheit = (celsius * 9/5) + 32
-print(f"{celsius}°C = {fahrenheit}°F")
-        """, language="python")
+        CODE = code_utils.get_code("python_basics/temperature_converter.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)

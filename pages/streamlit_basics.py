@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-from scripts import streamlit_utils
+from scripts import streamlit_utils, code_utils
 
 def show():
     st.header("📊 Streamlit Basics")
@@ -13,14 +13,9 @@ def show():
         st.subheader("Displaying Text")
         
         st.markdown("**Code:**")
-        st.code("""
-st.title("This is a title")
-st.header("This is a header")
-st.subheader("This is a subheader")
-st.text("This is plain text")
-st.markdown("This is **markdown** with *formatting*")
-st.caption("This is a caption")
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/text_elements.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Output:**")
         st.title("This is a title")
@@ -35,21 +30,9 @@ st.caption("This is a caption")
         st.subheader("Displaying Data")
         
         st.markdown("**Code:**")
-        st.code("""
-# DataFrame
-df = pd.DataFrame({
-    'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [25, 30, 35],
-    'City': ['New York', 'London', 'Paris']
-})
-st.dataframe(df)
-
-# Metrics
-st.metric("Temperature", "25°C", "2°C")
-
-# JSON
-st.json({'name': 'Alice', 'age': 25})
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/data_display.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Output:**")
         df = streamlit_utils.generate_sample_dataframe()
@@ -73,26 +56,9 @@ st.json({'name': 'Alice', 'age': 25})
         
         with col1:
             st.markdown("**Code:**")
-            st.code("""
-# Text input
-name = st.text_input("Enter your name")
-
-# Number input
-age = st.number_input("Enter your age", 0, 100)
-
-# Slider
-value = st.slider("Select a value", 0, 100)
-
-# Select box
-option = st.selectbox("Choose", ["A", "B", "C"])
-
-# Checkbox
-agree = st.checkbox("I agree")
-
-# Button
-if st.button("Click me"):
-    st.write("Button clicked!")
-            """, language="python")
+            CODE = code_utils.get_code("streamlit_basics/input_widgets.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         with col2:
             st.markdown("**Try it:**")
@@ -122,15 +88,9 @@ if st.button("Click me"):
         st.subheader("Organizing Content")
         
         st.markdown("**Columns:**")
-        st.code("""
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.write("Column 1")
-with col2:
-    st.write("Column 2")
-with col3:
-    st.write("Column 3")
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/layout_columns.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -141,15 +101,9 @@ with col3:
             st.warning("Column 3")
         
         st.markdown("**Tabs:**")
-        st.code("""
-tab1, tab2, tab3 = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
-with tab1:
-    st.write("Content 1")
-with tab2:
-    st.write("Content 2")
-with tab3:
-    st.write("Content 3")
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/layout_tabs.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         tab1, tab2, tab3 = st.tabs(["📈 Chart", "📋 Data", "⚙️ Settings"])
         with tab1:
@@ -169,20 +123,9 @@ with tab3:
         st.subheader("Visualizations")
         
         st.markdown("**Code:**")
-        st.code("""
-# Line chart
-chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=['A', 'B', 'C']
-)
-st.line_chart(chart_data)
-
-# Bar chart
-st.bar_chart(chart_data)
-
-# Area chart
-st.area_chart(chart_data)
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/charts.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Output:**")
         chart_data = streamlit_utils.generate_chart_data()
@@ -200,13 +143,9 @@ st.area_chart(chart_data)
         st.subheader("Messages and Notifications")
         
         st.markdown("**Code:**")
-        st.code("""
-st.success("Success message!")
-st.info("Info message")
-st.warning("Warning message")
-st.error("Error message")
-st.exception(Exception("This is an exception"))
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/status_elements.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         st.markdown("**Output:**")
         st.success("Success message! ✅")
@@ -219,18 +158,9 @@ st.exception(Exception("This is an exception"))
         st.subheader("Progress and Spinners")
         
         st.markdown("**Code:**")
-        st.code("""
-# Progress bar
-progress = st.progress(0)
-for i in range(100):
-    progress.progress(i + 1)
-    time.sleep(0.01)
-
-# Spinner
-with st.spinner("Loading..."):
-    time.sleep(2)
-st.success("Done!")
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/progress_indicators.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)
         
         if st.button("Run Progress Demo", key="progress_demo"):
             progress = st.progress(0)
@@ -266,22 +196,6 @@ st.success("Done!")
     
     with col2:
         st.markdown("**Code:**")
-        st.code("""
-num_rows = 50
-num_cols = 3
-
-data = pd.DataFrame(
-    np.random.randn(
-        num_rows, 
-        num_cols
-    ),
-    columns=[
-        f'Col {i+1}' 
-        for i in range(num_cols)
-    ]
-)
-
-st.dataframe(data)
-st.line_chart(data)
-st.dataframe(data.describe())
-        """, language="python")
+        CODE = code_utils.get_code("streamlit_basics/interactive_example.py")
+        st.code(CODE, language="python")
+        code_utils.run_code(CODE)

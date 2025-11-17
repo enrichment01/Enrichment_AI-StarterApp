@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-from scripts import text_generator, chatbot, text_analyzer
+from scripts import text_generator, chatbot, text_analyzer, code_utils
 
 def show():
     st.header("🚀 Ollama AI MiniApps")
@@ -264,58 +264,16 @@ def show():
         st.markdown(f"### Code for {app_choice}")
         
         if app_choice == "📝 Text Generator":
-            st.code("""
-import ollama
-
-prompt = "Write a short story about a robot"
-model = "llama2"
-temperature = 0.7
-
-response = ollama.generate(
-    model=model,
-    prompt=prompt,
-    options={
-        'temperature': temperature,
-        'num_predict': 200,
-    }
-)
-
-print(response['response'])
-            """, language="python")
+            CODE = code_utils.get_code("ollama_miniapps/text_generator.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         elif app_choice == "💬 Chatbot":
-            st.code("""
-import ollama
-
-messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello!"}
-]
-
-stream = ollama.chat(
-    model='llama2',
-    messages=messages,
-    stream=True
-)
-
-for chunk in stream:
-    print(chunk['message']['content'], end='')
-            """, language="python")
+            CODE = code_utils.get_code("ollama_miniapps/chatbot.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
         
         elif app_choice == "🔍 Text Analyzer":
-            st.code("""
-import ollama
-
-text = "Your text here..."
-analysis_type = "Summarize"
-
-prompt = f"Summarize the following text concisely:\\n\\n{text}"
-
-response = ollama.generate(
-    model='llama2',
-    prompt=prompt,
-    options={'temperature': 0.3}
-)
-
-print(response['response'])
-            """, language="python")
+            CODE = code_utils.get_code("ollama_miniapps/text_analyzer.py")
+            st.code(CODE, language="python")
+            code_utils.run_code(CODE)
