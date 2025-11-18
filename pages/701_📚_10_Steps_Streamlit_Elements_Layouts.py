@@ -9,16 +9,16 @@ st.markdown("A comprehensive guide to learn Streamlit's UI elements and layout c
 
 # Create tabs for each step
 tabs = st.tabs([
-    "Step 1: Text Elements",
-    "Step 2: Data Display",
-    "Step 3: Charts",
-    "Step 4: Input Widgets",
-    "Step 5: Columns",
-    "Step 6: Tabs",
-    "Step 7: Expanders",
-    "Step 8: Sidebar",
-    "Step 9: Forms",
-    "Step 10: Complete Example"
+    "Text",
+    "Data",
+    "Charts",
+    "Input",
+    "Columns",
+    "Tabs",
+    "Expanders",
+    "Sidebar",
+    "Forms",
+    "Complete Example"
 ])
 
 # Step 1: Text Elements

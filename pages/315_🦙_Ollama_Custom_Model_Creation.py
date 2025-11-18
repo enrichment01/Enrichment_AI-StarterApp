@@ -19,7 +19,7 @@ st.subheader("📝 Basic Modelfile Structure")
 
 basic_modelfile = """
 # Start from an existing model
-FROM llama2
+FROM phi4-mini
 
 # Set the temperature (creativity)
 PARAMETER temperature 0.8
@@ -78,7 +78,7 @@ for directive, description in directives.items():
 st.subheader("💼 Example: Python Tutor")
 
 python_tutor = """
-FROM llama2
+FROM phi4-mini
 
 # System prompt defining the role
 SYSTEM '''
@@ -205,7 +205,7 @@ st.code(manage_code, language="bash")
 st.subheader("🎯 Advanced: Custom Templates")
 
 template_example = """
-FROM llama2
+FROM phi4-mini
 
 # Custom prompt template
 TEMPLATE '''

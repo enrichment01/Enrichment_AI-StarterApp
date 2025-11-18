@@ -15,7 +15,7 @@ import ollama
 
 # Streaming chat
 stream = ollama.chat(
-    model='llama2',
+    model='phi4-mini',
     messages=[
         {
             'role': 'user',

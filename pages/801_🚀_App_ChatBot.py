@@ -18,7 +18,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "chatbot_model" not in st.session_state:
-    st.session_state.chatbot_model = "llama2"
+    st.session_state.chatbot_model = "phi4-mini"
 
 # Sidebar settings
 with st.sidebar:
@@ -26,7 +26,7 @@ with st.sidebar:
     
     st.session_state.chatbot_model = st.selectbox(
         "Model:",
-        ["llama2", "mistral", "codellama", "phi"],
+        ["phi4-mini", "mistral", "codellama", "phi"],
         index=0,
         key="chatbot_model_select"
     )

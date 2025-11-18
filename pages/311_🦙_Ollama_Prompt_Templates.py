@@ -32,7 +32,7 @@ prompt = template.format(
     format="Simple explanation for beginners"
 )
 
-response = ollama.generate(model='llama2', prompt=prompt)
+response = ollama.generate(model='phi4-mini', prompt=prompt)
 """
 
 st.code(basic_template, language="python")
@@ -262,7 +262,7 @@ test_cases = [
 
 for i, test_input in enumerate(test_cases):
     prompt = template.format(text=test_input)
-    response = ollama.generate(model='llama2', prompt=prompt)
+    response = ollama.generate(model='phi4-mini', prompt=prompt)
     print(f"Test {i+1}: {response['response'][:100]}...")
 """
 

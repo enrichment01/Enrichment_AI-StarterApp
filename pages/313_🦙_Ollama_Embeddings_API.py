@@ -27,7 +27,7 @@ import ollama
 
 # Generate embedding for a single text
 response = ollama.embeddings(
-    model='llama2',
+    model='phi4-mini',
     prompt='The quick brown fox'
 )
 
@@ -74,12 +74,12 @@ def cosine_similarity(vec1, vec2):
 
 # Generate embeddings for two texts
 response1 = ollama.embeddings(
-    model='llama2',
+    model='phi4-mini',
     prompt='I love programming'
 )
 
 response2 = ollama.embeddings(
-    model='llama2',
+    model='phi4-mini',
     prompt='I enjoy coding'
 )
 
@@ -94,7 +94,7 @@ print(f"Similarity: {similarity:.4f}")
 
 # Compare with different text
 response3 = ollama.embeddings(
-    model='llama2',
+    model='phi4-mini',
     prompt='The weather is nice'
 )
 
@@ -124,12 +124,12 @@ documents = [
 # Generate embeddings for all documents
 doc_embeddings = []
 for doc in documents:
-    response = ollama.embeddings(model='llama2', prompt=doc)
+    response = ollama.embeddings(model='phi4-mini', prompt=doc)
     doc_embeddings.append(response['embedding'])
 
 # Search query
 query = "Tell me about coding languages"
-query_response = ollama.embeddings(model='llama2', prompt=query)
+query_response = ollama.embeddings(model='phi4-mini', prompt=query)
 query_embedding = query_response['embedding']
 
 # Calculate similarities
@@ -188,14 +188,14 @@ class VectorStore:
     
     def add(self, text):
         '''Add document to store'''
-        response = ollama.embeddings(model='llama2', prompt=text)
+        response = ollama.embeddings(model='phi4-mini', prompt=text)
         self.documents.append(text)
         self.embeddings.append(response['embedding'])
     
     def search(self, query, top_k=5):
         '''Search for similar documents'''
         # Get query embedding
-        response = ollama.embeddings(model='llama2', prompt=query)
+        response = ollama.embeddings(model='phi4-mini', prompt=query)
         query_emb = response['embedding']
         
         # Calculate similarities
@@ -242,7 +242,7 @@ def get_embedding_cached(text, cache_file='embeddings.pkl'):
         return cache[text]
     
     # Generate embedding
-    response = ollama.embeddings(model='llama2', prompt=text)
+    response = ollama.embeddings(model='phi4-mini', prompt=text)
     embedding = response['embedding']
     
     # Save to cache
@@ -287,7 +287,7 @@ st.info("""
 st.subheader("📚 Models for Embeddings")
 
 models = {
-    "llama2": "General purpose, 4096 dims",
+    "phi4-mini": "General purpose, 4096 dims",
     "mistral": "Fast, 4096 dims",
     "nomic-embed-text": "Optimized for embeddings, 768 dims",
     "mxbai-embed-large": "High quality, 1024 dims"
@@ -319,7 +319,7 @@ docs = [
 # Generate embeddings
 embeddings = []
 for doc in docs:
-    response = ollama.embeddings(model='llama2', prompt=doc)
+    response = ollama.embeddings(model='phi4-mini', prompt=doc)
     embeddings.append(response['embedding'])
 
 # Convert to numpy array

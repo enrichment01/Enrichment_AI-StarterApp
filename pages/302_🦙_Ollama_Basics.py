@@ -33,7 +33,7 @@ with col1:
                     for model in state['models']:
                         st.write(f"- {model['model']}")
                 else:
-                    st.info("No models found. Run `ollama pull llama2` to get started!")
+                    st.info("No models found. Run `ollama pull phi4-mini` to get started!")
             else:
                 st.error(f"❌ {state['message']}")
                 if 'SDK not installed' not in state['message']:
@@ -74,7 +74,7 @@ with col1:
 
 with col2:
     st.markdown("**Popular Models**")
-    st.markdown("- llama2")
+    st.markdown("- phi4-mini")
     st.markdown("- mistral")
     st.markdown("- codellama")
     st.markdown("- phi")

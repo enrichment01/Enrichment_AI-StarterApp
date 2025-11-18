@@ -8,16 +8,16 @@ st.markdown("Build creative and practical AI-powered applications with Ollama.")
 
 # Create tabs for each step
 tabs = st.tabs([
-    "Step 1: Code Generator",
-    "Step 2: Code Explainer",
-    "Step 3: Translator",
-    "Step 4: Story Generator",
-    "Step 5: Email Writer",
-    "Step 6: Resume Analyzer",
-    "Step 7: Meeting Notes",
-    "Step 8: Q&A Assistant",
-    "Step 9: Name Generator",
-    "Step 10: App Showcase"
+    "Code Generator",
+    "Code Explainer",
+    "Translator",
+    "Story Generator",
+    "Email Writer",
+    "Resume Analyzer",
+    "Meeting Notes",
+    "Q&A Assistant",
+    "Name Generator",
+    "App Showcase"
 ])
 
 # Step 1: Code Generator

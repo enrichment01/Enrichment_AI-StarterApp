@@ -16,7 +16,7 @@ and user experience.
 st.subheader("📊 Popular Ollama Models")
 
 models_table = {
-    "Model": ["llama2", "llama3", "mistral", "codellama", "phi", "gemma"],
+    "Model": ["phi4-mini", "llama3", "mistral", "codellama", "phi", "gemma"],
     "Size": ["7B", "8B", "7B", "7B", "2.7B", "7B"],
     "Speed": ["Medium", "Medium", "Fast", "Medium", "Very Fast", "Fast"],
     "Quality": ["Good", "Very Good", "Good", "Good", "Fair", "Good"],
@@ -96,7 +96,7 @@ st.subheader("⚡ Performance Metrics")
 st.write("**Approximate Response Times (for ~100 token response):**")
 
 perf_data = {
-    "Model": ["phi", "mistral", "gemma", "llama2", "llama3", "codellama"],
+    "Model": ["phi", "mistral", "gemma", "phi4-mini", "llama3", "codellama"],
     "Speed (tokens/sec)": [40, 30, 25, 20, 18, 20],
     "RAM Usage (GB)": [2, 4, 4, 4, 5, 4]
 }
@@ -114,7 +114,7 @@ st.write("**Response Quality by Task Type:**")
 
 quality_matrix = {
     "Task": ["General Chat", "Code Generation", "Analysis", "Creative Writing", "Simple Q&A"],
-    "llama2": ["⭐⭐⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐"],
+    "phi4-mini": ["⭐⭐⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐"],
     "llama3": ["⭐⭐⭐⭐", "⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐", "⭐⭐⭐⭐"],
     "mistral": ["⭐⭐⭐⭐", "⭐⭐", "⭐⭐", "⭐⭐⭐", "⭐⭐⭐"],
     "codellama": ["⭐⭐", "⭐⭐⭐⭐⭐", "⭐⭐", "⭐⭐", "⭐⭐"],
@@ -135,11 +135,11 @@ Choose your model based on:
    - Code tasks → codellama
    - Quick answers → phi, mistral
    - Analysis → llama3
-   - Creative writing → llama3, llama2
+   - Creative writing → llama3, phi4-mini
 
 **2. Resources:**
    - Limited RAM (< 4GB) → phi
-   - Standard (4-8GB) → mistral, llama2
+   - Standard (4-8GB) → mistral, phi4-mini
    - High-end (8GB+) → llama3
 
 **3. Speed Requirements:**
@@ -162,7 +162,7 @@ test_code = """
 import ollama
 import time
 
-def test_models(prompt, models=['llama2', 'mistral', 'phi']):
+def test_models(prompt, models=['phi4-mini', 'mistral', 'phi']):
     '''Test prompt across multiple models'''
     
     results = []
@@ -238,10 +238,10 @@ task = st.selectbox(
 )
 
 recommendations = {
-    "General Chat": ["mistral", "llama3", "llama2"],
+    "General Chat": ["mistral", "llama3", "phi4-mini"],
     "Code Generation": ["codellama", "llama3"],
-    "Data Analysis": ["llama3", "llama2"],
-    "Creative Writing": ["llama3", "llama2"],
+    "Data Analysis": ["llama3", "phi4-mini"],
+    "Creative Writing": ["llama3", "phi4-mini"],
     "Quick Q&A": ["phi", "mistral"]
 }
 

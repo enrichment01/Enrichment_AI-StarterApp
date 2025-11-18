@@ -37,7 +37,7 @@ with col1:
     
     model = st.selectbox(
         "Model:",
-        ["llama2", "mistral", "phi"],
+        ["phi4-mini", "mistral", "phi"],
         key="analyze_model"
     )
     

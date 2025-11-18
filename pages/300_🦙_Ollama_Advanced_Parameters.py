@@ -11,7 +11,7 @@ CODE = """
 import ollama
 
 response = ollama.chat(
-    model='llama2',
+    model='phi4-mini',
     messages=[
         {
             'role': 'user',

@@ -7,16 +7,16 @@ st.markdown("Learn to create chat, text generation, and text analysis applicatio
 
 # Create tabs for each step
 tabs = st.tabs([
-    "Step 1: Chat Basics",
-    "Step 2: Message History",
-    "Step 3: Stream Chat",
-    "Step 4: Text Generator",
-    "Step 5: Creative Writing",
-    "Step 6: Text Analyzer",
-    "Step 7: Summarization",
-    "Step 8: Sentiment",
-    "Step 9: Key Points",
-    "Step 10: Full Apps"
+    "Chat Basics",
+    "Message History",
+    "Stream Chat",
+    "Text Generator",
+    "Creative Writing",
+    "Text Analyzer",
+    "Summarization",
+    "Sentiment",
+    "Key Points",
+    "Full Apps"
 ])
 
 # Step 1: Chat Interface Basics

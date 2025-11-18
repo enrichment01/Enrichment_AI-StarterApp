@@ -1,11 +1,8 @@
 import streamlit as st
 from functools import reduce
 
-
-
-
-    st.header("λ Lambda Functions — Python Basics")
-    st.markdown("Anonymous functions and functional programming concepts.")
+st.header("λ Lambda Functions — Python Basics")
+st.markdown("Anonymous functions and functional programming concepts.")
 
 # Basic lambda
 st.subheader("Basic Lambda Functions")

@@ -36,7 +36,7 @@ This application includes over 50 comprehensive example pages organized into 4 m
 
 3. **Install Ollama (Optional - for AI features):**
    - Visit [https://ollama.ai](https://ollama.ai) to download and install Ollama
-   - Pull a model: `ollama pull llama2`
+   - Pull a model: `ollama pull phi4-mini`
 
 ### Running the App
 
@@ -125,14 +125,14 @@ Three complete applications:
 ### Models
 
 The app supports multiple Ollama models:
-- **llama2** - General purpose, recommended for beginners
+- **phi4-mini** - General purpose, recommended for beginners
 - **mistral** - Fast and efficient
 - **codellama** - Specialized for code
 - **phi** - Lightweight option
 
 To use a model, first pull it:
 ```bash
-ollama pull llama2
+ollama pull phi4-mini
 ollama pull mistral
 ```
 
@@ -182,7 +182,7 @@ Enrichment_AI-StarterApp/
 ### Ollama connection errors
 - Ensure Ollama is installed and running
 - Check if the model is pulled: `ollama list`
-- Try pulling the model: `ollama pull llama2`
+- Try pulling the model: `ollama pull phi4-mini`
 
 ### Import errors
 - Make sure all dependencies are installed: `pip install -r requirements.txt`

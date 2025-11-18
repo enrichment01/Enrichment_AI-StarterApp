@@ -8,16 +8,16 @@ st.markdown("A comprehensive guide to learn Ollama's capabilities and integratio
 
 # Create tabs for each step
 tabs = st.tabs([
-    "Step 1: Installation",
-    "Step 2: Basic Generation",
-    "Step 3: Streaming",
-    "Step 4: Models",
-    "Step 5: Temperature",
-    "Step 6: System Messages",
-    "Step 7: Context",
-    "Step 8: Conversations",
-    "Step 9: Error Handling",
-    "Step 10: Complete Example"
+    "Installation",
+    "Basic Generation",
+    "Streaming",
+    "Models",
+    "Temperature",
+    "System Messages",
+    "Context",
+    "Conversations",
+    "Error Handling",
+    "Complete Example"
 ])
 
 # Step 1: Installation and Setup
