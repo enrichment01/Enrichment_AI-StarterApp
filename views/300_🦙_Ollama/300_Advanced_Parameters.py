@@ -8,6 +8,7 @@ st.subheader("Customizing Model Behavior")
 
 st.markdown("**Temperature, Top-P, and More:**")
 CODE = """
+import streamlit as st
 import ollama
 
 response = ollama.chat(
@@ -25,6 +26,7 @@ response = ollama.chat(
         'num_predict': 100,  # Max tokens to generate
     }
 )
+st.write(response)
 
 """
 st.code(CODE, language="python")
