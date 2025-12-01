@@ -6,8 +6,11 @@ from lib import helper_streamlit
 st.header("⚙️ Advanced Parameters — Ollama Basics")
 st.subheader("Customizing Model Behavior")
 
-st.markdown("**Temperature, Top-P, and More:**")
-CODE = """
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("**Temperature, Top-P, and More:**")
+    CODE = """
 import streamlit as st
 import ollama
 
@@ -27,16 +30,18 @@ response = ollama.chat(
     }
 )
 st.write(response)
-
 """
-st.code(CODE, language="python")
-helper_streamlit.run_code(CODE)
+    st.code(CODE, language="python")
 
-st.markdown("**Parameter Meanings:**")
-st.markdown("""
+with col2:
+    st.markdown("**Parameter Meanings:**")
+    st.markdown("""
 - **temperature** (0.0-2.0): Controls randomness. Lower = more focused, Higher = more creative
 - **top_p** (0.0-1.0): Nucleus sampling threshold
 - **top_k**: Limits vocabulary to top k tokens
 - **num_predict**: Maximum number of tokens to generate
 - **repeat_penalty**: Penalizes repetition (default: 1.1)
 """)
+
+
+helper_streamlit.run_code(CODE)
