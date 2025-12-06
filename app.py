@@ -1,6 +1,6 @@
 import streamlit as st
 
-from .lib.helper_streamlit import build_navigation
+from lib.helper_streamlit import build_navigation
 
 # Page configuration
 st.set_page_config(

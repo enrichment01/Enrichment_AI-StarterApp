@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+from lib.helper_streamlit import add_select_model
 
 st.set_page_config(page_title="10 Steps: Ollama Basics & Features", page_icon="🦙", layout="wide")
 
@@ -715,6 +715,9 @@ with tabs[9]:
             ["llama2", "mistral", "codellama", "phi"],
             key="complete_model"
         )
+
+        selected_model = add_select_model()
+
         temp_setting = st.slider(
             "Temperature:",
             0.0, 2.0, 0.7, 0.1,
