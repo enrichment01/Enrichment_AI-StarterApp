@@ -11,7 +11,7 @@ if st.button("Senden") and prompt.strip():
             response = requests.post(
                   "http://localhost:11434/api/generate",
                   json={
-                     "model": "phi4",
+                     "model": "phi4-mini",
                      "prompt": prompt,
                      "stream": False
                   },

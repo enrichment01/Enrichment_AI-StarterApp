@@ -1,5 +1,11 @@
+import streamlit as st
 import ollama
 
-r = ollama.chat(model="phi4", messages=[{"role":"user","content":"Sag Hallo"}])
+st.title("🧠 Lokales LLM mit Ollama")
 
-print(r["message"]["content"])
+prompt = st.text_input("Frage eingeben:")
+
+if st.button("Senden") and prompt.strip():
+    r = ollama.chat(model="phi4-mini", messages=[{"role":"user","content":prompt}])
+
+    st.write(r["message"]["content"])

@@ -41,6 +41,19 @@
 				"packageManager": "ms-python.python:pip"
 			}
 		],
+		"python-envs.runAsTask": [
+						{
+				"name": "S: file",
+				"type": "debugpy",
+				"request": "launch",
+				"module": "streamlit",
+				"cwd": "${workspaceFolder}",
+				"args": [
+					"run",
+					"${file}"
+				]
+			}
+		],
 		"git.ignoreLimitWarning": true
 	},
 	"launch": {
