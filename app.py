@@ -10,9 +10,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Main title
-st.title("🤖 Streamlit/Ollama Starter App")
-
 pages = build_navigation()
 
 st.navigation(pages).run()
