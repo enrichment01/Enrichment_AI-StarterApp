@@ -1,4 +1,7 @@
 import streamlit as st
+import ollama
+
+from lib.helper_streamlit import add_select_model
 
 st.set_page_config(page_title="10 Steps: Ollama Mini Apps", page_icon="🚀", layout="wide")
 
@@ -6,22 +9,147 @@ st.title("🚀 10 Steps to Build Ollama Mini Apps")
 st.markdown("Learn to create chat, text generation, and text analysis applications with Ollama.")
 
 # Create tabs for each step
-tabs = st.tabs([
-    "Chat Basics",
-    "Message History",
-    "Stream Chat",
-    "Text Generator",
-    "Creative Writing",
-    "Text Analyzer",
-    "Summarization",
-    "Sentiment",
-    "Key Points",
-    "Full Apps"
-])
+TAB_MODEL_MANAGEMENT="Model Management"
+TAB_CHAT_BASICS="Chat Basics"
+TAB_MESSAGE_HISTORY="Message History"
+TAB_STREAM_CHAT="Stream Chat"
+TAB_TEXT_GENERATOR="Text Generator"
+TAB_CREATIVE_WRITING="Creative Writing"
+TAB_TEXT_ANALYZER="Text Analyzer"
+TAB_SUMMARIZATION="Summarization"
+TAB_SENTIMENT="Sentiment"
+TAB_KEY_POINTS="Key Points"
+TAB_FULL_APPS="Full Apps"
 
-# Step 1: Chat Interface Basics
-with tabs[0]:
-    st.header("Step 1: Chat Interface Basics")
+TAB_NAMES = [
+    TAB_MODEL_MANAGEMENT,
+    TAB_CHAT_BASICS,
+    TAB_MESSAGE_HISTORY,
+    TAB_STREAM_CHAT,
+    TAB_TEXT_GENERATOR,
+    TAB_CREATIVE_WRITING,
+    TAB_TEXT_ANALYZER,
+    TAB_SUMMARIZATION,
+    TAB_SENTIMENT,
+    TAB_KEY_POINTS,
+    TAB_FULL_APPS,
+]
+
+tabs = st.tabs(TAB_NAMES)
+
+def get_tab_index(name):
+    try:
+        return TAB_NAMES.index(name)
+    except ValueError:
+        return -1
+    
+with tabs[get_tab_index(TAB_MODEL_MANAGEMENT)]:
+    st.header("Step 0: Model Management")
+    st.markdown("Ensure Ollama is installed and models are set up.")
+    
+    col1, col2 = st.columns([1, 1])
+        
+    with col1:
+        st.markdown("### Model Manager:")
+        
+        # List models
+        try:
+            models = ollama.list()
+            
+            if models and 'models' in models:
+                st.markdown("**Available Models:**")
+                for model in models['models']:
+                    with st.expander(f"📦 {model['model']}"):
+                        st.write(f"**Size:** {model.get('size', 'N/A')}")
+                        st.write(f"**Modified:** {model.get('modified_at', 'N/A')}")
+                        
+                        col_info, col_del = st.columns(2)
+                        
+                        with col_info:
+                            if st.button("ℹ️ Info", key=f"info_{model['model']}"):
+                                try:
+                                    info = ollama.show(model['model'])
+                                    st.json(info)
+                                except Exception as e:
+                                    st.error(f"Error: {str(e)}")
+                        
+                        with col_del:
+                            if st.button("🗑️ Delete", key=f"del_{model['model']}"):
+                                try:
+                                    ollama.delete(model['model'])
+                                    st.success(f"Deleted {model['model']}")
+                                    st.rerun()
+                                except Exception as e:
+                                    st.error(f"Error: {str(e)}")
+            else:
+                st.warning("No models found")
+        except Exception as e:
+            st.error(f"Error listing models: {str(e)}")
+        
+        st.markdown("---")
+        st.markdown("**Pull New Model:**")
+        
+        model_to_pull = st.text_input("Model name (e.g., llama2, mistral):", key="pull_model")
+        
+        if st.button("⬇️ Pull Model", key="pull_button"):
+            if model_to_pull:
+                with st.spinner(f"Pulling {model_to_pull}..."):
+                    try:
+                        ollama.pull(model_to_pull)
+                        st.success(f"Successfully pulled {model_to_pull}")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Error: {str(e)}")
+            else:
+                st.warning("Please enter a model name")
+    
+    with col2:
+        st.markdown("### Code:")
+        code = """
+
+# List available models
+models = ollama.list()
+
+if models and 'models' in models:
+    st.markdown("**Available Models:**")
+    for model in models['models']:
+        st.write(f"📦 {model['name']}")
+        st.write(f"Size: {model.get('size', 'N/A')}")
+        
+        # Show model info
+        if st.button(f"Info: {model['model']}"):
+            info = ollama.show(model['model'])
+            st.json(info)
+        
+        # Delete model
+        if st.button(f"Delete: {model['model']}"):
+            ollama.delete(model['model'])
+            st.success(f"Deleted {model['model']}")
+            st.rerun()
+
+# Pull new model
+model_name = st.text_input("Model to pull:")
+
+if st.button("Pull Model"):
+    ollama.pull(model_name)
+    st.success(f"Pulled {model_name}")
+    st.rerun()
+"""
+        st.code(code, language="python")
+        
+        st.markdown("### Popular Models:")
+        st.info("""
+        - **llama2**: General purpose
+        - **mistral**: Fast and efficient
+        - **phi**: Lightweight
+        - **codellama**: Code generation
+        - **llama2:13b**: Larger variant
+        """)
+    
+    st.success("✅ **Key Point:** Proper model management ensures efficient resource usage.")
+    
+with tabs[get_tab_index(TAB_CHAT_BASICS)]:
+    st.header(f"Step 1: {TAB_CHAT_BASICS}")
     st.markdown("Build a simple chat interface foundation.")
     
     col1, col2 = st.columns([1, 1])
@@ -54,7 +182,7 @@ with tabs[0]:
             try:
                 import ollama
                 response = ollama.chat(
-                    model='llama2',
+                    model=selected_model,
                     messages=st.session_state.step1_messages
                 )
                 
@@ -96,7 +224,7 @@ if user_input := st.chat_input("Type your message..."):
     
     # Generate AI response
     response = ollama.chat(
-        model='llama2',
+        model=selected_model,
         messages=st.session_state.messages
     )
     
@@ -112,8 +240,7 @@ if user_input := st.chat_input("Type your message..."):
     
     st.success("✅ **Key Point:** Use st.chat_message() and st.chat_input() for modern chat UI.")
 
-# Step 2: Message History Management
-with tabs[1]:
+with tabs[get_tab_index(TAB_MESSAGE_HISTORY)]:
     st.header("Step 2: Message History Management")
     st.markdown("Manage conversation history effectively.")
     
@@ -153,7 +280,7 @@ with tabs[1]:
             try:
                 import ollama
                 response = ollama.chat(
-                    model='llama2',
+                    model=selected_model,
                     messages=st.session_state.step2_messages
                 )
                 
@@ -193,7 +320,7 @@ if user_input := st.chat_input("Message..."):
     
     # Get response
     response = ollama.chat(
-        model='llama2',
+        model=selected_model,
         messages=st.session_state.messages
     )
     
@@ -214,8 +341,7 @@ if user_input := st.chat_input("Message..."):
     
     st.success("✅ **Key Point:** Manage history size for performance and context relevance.")
 
-# Step 3: Streaming Chat
-with tabs[2]:
+with tabs[get_tab_index(TAB_STREAM_CHAT)]:
     st.header("Step 3: Streaming Chat Responses")
     st.markdown("Display responses in real-time as they're generated.")
     
@@ -253,7 +379,7 @@ with tabs[2]:
                 try:
                     import ollama
                     stream = ollama.chat(
-                        model='llama2',
+                        model=selected_model,
                         messages=st.session_state.step3_messages,
                         stream=True
                     )
@@ -304,7 +430,7 @@ if prompt := st.chat_input("Message..."):
         full_response = ""
         
         stream = ollama.chat(
-            model='llama2',
+            model=selected_model,
             messages=st.session_state.messages,
             stream=True
         )
@@ -325,8 +451,7 @@ if prompt := st.chat_input("Message..."):
     
     st.success("✅ **Key Point:** Streaming provides better UX for longer responses.")
 
-# Step 4: Text Generator Setup
-with tabs[3]:
+with tabs[get_tab_index(TAB_TEXT_GENERATOR)]:
     st.header("Step 4: Text Generator Setup")
     st.markdown("Build a customizable text generation interface.")
     
@@ -336,7 +461,7 @@ with tabs[3]:
         st.markdown("### Text Generator:")
         
         # Generator settings
-        gen_model = st.selectbox("Model:", ["llama2", "mistral", "phi"], key="gen_model")
+        gen_model = add_select_model(key="gen_model")
         gen_temp = st.slider("Temperature:", 0.0, 2.0, 0.7, 0.1, key="gen_temp")
         gen_length = st.slider("Max length:", 50, 500, 200, 50, key="gen_length")
         
@@ -432,8 +557,7 @@ if st.button("Generate"):
     
     st.info("💡 **Tip:** Templates help users get started quickly with common use cases.")
 
-# Step 5: Creative Writing Features
-with tabs[4]:
+with tabs[get_tab_index(TAB_CREATIVE_WRITING)]:
     st.header("Step 5: Creative Writing Features")
     st.markdown("Add advanced features for creative text generation.")
     
@@ -478,7 +602,7 @@ with tabs[4]:
             try:
                 import ollama
                 stream = ollama.generate(
-                    model='llama2',
+                    model=selected_model,
                     prompt=prompt,
                     options={'temperature': 0.9},  # High creativity
                     stream=True
@@ -524,7 +648,7 @@ if st.button("Create"):
     placeholder = st.empty()
     
     stream = ollama.generate(
-        model='llama2',
+        model=selected_model,
         prompt=prompt,
         options={'temperature': 0.9},
         stream=True
@@ -540,8 +664,7 @@ if st.button("Create"):
     
     st.success("✅ **Key Point:** Combine multiple parameters for fine-tuned creative control.")
 
-# Step 6: Text Analyzer Setup
-with tabs[5]:
+with tabs[get_tab_index(TAB_TEXT_ANALYZER)]:
     st.header("Step 6: Text Analyzer Setup")
     st.markdown("Build a text analysis tool foundation.")
     
@@ -591,7 +714,7 @@ with tabs[5]:
                     try:
                         import ollama
                         response = ollama.generate(
-                            model='llama2',
+                            model=selected_model,
                             prompt=prompts[analysis_type],
                             options={'temperature': 0.3}  # Low for factual
                         )
@@ -624,7 +747,7 @@ if st.button("Analyze"):
     
     # Analyze with AI
     response = ollama.generate(
-        model='llama2',
+        model=selected_model,
         prompt=prompts[analysis],
         options={'temperature': 0.3}  # Factual
     )
@@ -643,13 +766,15 @@ if st.button("Analyze"):
     
     st.success("✅ **Key Point:** Use low temperature (0.2-0.4) for factual analysis tasks.")
 
-# Step 7: Summarization Features
-with tabs[6]:
+with tabs[get_tab_index(TAB_SUMMARIZATION)]:
     st.header("Step 7: Advanced Summarization")
     st.markdown("Create flexible summarization with different lengths and styles.")
     
     col1, col2 = st.columns([1, 1])
     
+    with st.sidebar:
+        selected_model = add_select_model(key="summarization_model")
+
     with col1:
         st.markdown("### Smart Summarizer:")
         
@@ -697,11 +822,13 @@ with tabs[6]:
             
             prompt = f"Summarize the following text {length_map[summary_length]} {style_map[summary_style]}:\n\n{text_to_summarize}"
             
-            with st.spinner("Summarizing..."):
+            st.write(f"Summarizing using {selected_model}...")
+            
+            with st.spinner(f"Summarizing using {selected_model}..."):
                 try:
                     import ollama
                     response = ollama.generate(
-                        model='llama2',
+                        model=selected_model,
                         prompt=prompt,
                         options={'temperature': 0.3}
                     )
@@ -760,7 +887,7 @@ if st.button("Summarize"):
     
     # Generate summary
     response = ollama.generate(
-        model='llama2',
+        model=selected_model,
         prompt=prompt,
         options={'temperature': 0.3}
     )
@@ -771,8 +898,7 @@ if st.button("Summarize"):
     
     st.success("✅ **Key Point:** Flexible summarization adapts to user needs.")
 
-# Step 8: Sentiment Analysis
-with tabs[7]:
+with tabs[get_tab_index(TAB_SENTIMENT)]:
     st.header("Step 8: Sentiment Analysis")
     st.markdown("Analyze emotional tone and sentiment of text.")
     
@@ -802,7 +928,7 @@ with tabs[7]:
                 try:
                     import ollama
                     response = ollama.generate(
-                        model='llama2',
+                        model=selected_model,
                         prompt=prompt,
                         options={'temperature': 0.2}
                     )
@@ -831,7 +957,7 @@ if st.button("Analyze Sentiment"):
     Text: {text}\"\"\"
     
     response = ollama.generate(
-        model='llama2',
+        model=selected_model,
         prompt=prompt,
         options={'temperature': 0.2}  # Low for accuracy
     )
@@ -853,8 +979,7 @@ if st.button("Analyze Sentiment"):
     
     st.success("✅ **Key Point:** Low temperature ensures consistent sentiment classification.")
 
-# Step 9: Key Points Extraction
-with tabs[8]:
+with tabs[get_tab_index(TAB_KEY_POINTS)]:
     st.header("Step 9: Key Points Extraction")
     st.markdown("Extract main ideas and important information.")
     
@@ -889,7 +1014,7 @@ with tabs[8]:
                 try:
                     import ollama
                     response = ollama.generate(
-                        model='llama2',
+                        model=selected_model,
                         prompt=prompt,
                         options={'temperature': 0.2}
                     )
@@ -917,7 +1042,7 @@ if st.button("Extract Key Points"):
     Text: {text}\"\"\"
     
     response = ollama.generate(
-        model='llama2',
+        model=selected_model,
         prompt=prompt,
         options={'temperature': 0.2}
     )
@@ -937,8 +1062,7 @@ if st.button("Extract Key Points"):
     
     st.success("✅ **Key Point:** Structured prompts ensure consistent output format.")
 
-# Step 10: Complete Mini Apps Integration
-with tabs[9]:
+with tabs[get_tab_index(TAB_FULL_APPS)]:
     st.header("Step 10: Complete Mini Apps")
     st.markdown("Combine all features into polished applications.")
     
@@ -958,7 +1082,7 @@ with tabs[9]:
         
         with st.sidebar:
             st.markdown("### Chat Settings")
-            chat_model = st.selectbox("Model:", ["llama2", "mistral", "phi"], key="chat_model_final")
+            chat_model = add_select_model(key="chat_model_final")
             chat_system = st.text_area(
                 "System Message:",
                 "You are a helpful and friendly assistant.",
@@ -1048,7 +1172,7 @@ with tabs[9]:
                         try:
                             import ollama
                             response = ollama.generate(
-                                model='llama2',
+                                model=selected_model,
                                 prompt=gen_prompt_final,
                                 options={'temperature': gen_temp_final}
                             )
@@ -1091,7 +1215,7 @@ with tabs[9]:
                         try:
                             import ollama
                             response = ollama.generate(
-                                model='llama2',
+                                model=selected_model,
                                 prompt=f"Summarize this text concisely:\n\n{analyze_text_final}",
                                 options={'temperature': 0.3}
                             )
@@ -1107,7 +1231,7 @@ with tabs[9]:
                         try:
                             import ollama
                             response = ollama.generate(
-                                model='llama2',
+                                model=selected_model,
                                 prompt=f"Identify the sentiment (Positive/Negative/Neutral) of this text:\n\n{analyze_text_final}",
                                 options={'temperature': 0.2}
                             )
@@ -1122,8 +1246,9 @@ with tabs[9]:
                     with st.spinner("Extracting..."):
                         try:
                             import ollama
+                            import streamlit as st
                             response = ollama.generate(
-                                model='llama2',
+                                model=selected_model,
                                 prompt=f"Extract 5 key points from this text:\n\n{analyze_text_final}",
                                 options={'temperature': 0.2}
                             )
@@ -1147,38 +1272,40 @@ with tabs[9]:
     st.markdown("---")
     st.success("🎉 **Congratulations!** You've mastered building Ollama mini apps!")
 
-# Summary
-st.markdown("---")
-st.markdown("## 📝 Summary")
 
-summary_cols = st.columns(2)
+if False:
+    # Summary
+    st.markdown("---")
+    st.markdown("## 📝 Summary")
 
-with summary_cols[0]:
-    st.markdown("""
-    ### Chat Apps:
-    1. ✅ Basic chat interface
-    2. ✅ Message history management
-    3. ✅ Streaming chat responses
-    """)
-    
-    st.markdown("""
-    ### Text Generation:
-    4. ✅ Generator setup
-    5. ✅ Creative writing features
-    """)
+    summary_cols = st.columns(2)
 
-with summary_cols[1]:
-    st.markdown("""
-    ### Text Analysis:
-    6. ✅ Analyzer foundation
-    7. ✅ Summarization
-    8. ✅ Sentiment analysis
-    9. ✅ Key points extraction
-    """)
-    
-    st.markdown("""
-    ### Integration:
-    10. ✅ Complete mini apps
-    """)
+    with summary_cols[0]:
+        st.markdown("""
+        ### Chat Apps:
+        1. ✅ Basic chat interface
+        2. ✅ Message history management
+        3. ✅ Streaming chat responses
+        """)
+        
+        st.markdown("""
+        ### Text Generation:
+        4. ✅ Generator setup
+        5. ✅ Creative writing features
+        """)
 
-st.info("💡 **Next Steps:** Customize these mini apps for your specific use cases!")
+    with summary_cols[1]:
+        st.markdown("""
+        ### Text Analysis:
+        6. ✅ Analyzer foundation
+        7. ✅ Summarization
+        8. ✅ Sentiment analysis
+        9. ✅ Key points extraction
+        """)
+        
+        st.markdown("""
+        ### Integration:
+        10. ✅ Complete mini apps
+        """)
+
+    st.info("💡 **Next Steps:** Customize these mini apps for your specific use cases!")

@@ -17,6 +17,7 @@ from io import StringIO
 import sys
 import traceback
 import re
+import uuid
 
 HERE = Path(__file__).parent.parent.parent
 
@@ -281,7 +282,10 @@ def generate(model: str, prompt: str) -> str:
     return acc
 
 
-def add_select_model(label: str = "Modell") -> str:
+def add_select_model(label: str = "Modell", key: str = None) -> str:
     """Render a model selectbox with the available Ollama models."""
 
-    return st.selectbox(label, models())
+    if key is None:
+        key = f"model_select_{uuid.uuid4().hex[:8]}"
+
+    return st.selectbox(label, models(), key=key)
