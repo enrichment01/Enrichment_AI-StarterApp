@@ -5,7 +5,7 @@ This module provides functions to discover and filter locally installed Ollama m
 by function type: embedding, tools, vision, thinking, and chat.
 """
 
-import ollama
+import ollama as o
 
 OLLAMA = "http://localhost:11434"
 
@@ -18,7 +18,7 @@ def check_ollama_status():
         dict: Status information with keys 'status', 'message', and 'models'
     """
     try:
-        models = ollama.list().models
+        models = o.list().models
         
         return {
             'status': 'success',
@@ -89,7 +89,7 @@ def get_local_llms(func=None):
     
     try:
         # Get all installed models from Ollama using direct function
-        response = ollama_sdk.list()
+        response = o.list()
         all_models = response.get("models", [])
         
         # Filter models based on function
@@ -238,7 +238,7 @@ def _supports_chat(model_name_lower):
 def get_model_info(model_name):
     """Get detailed information about a specific model."""
     try:
-        response = ollama_sdk.show(model_name)
+        response = o.show(model_name)
         
         # Add capability detection
         capabilities = _detect_model_capabilities(model_name.lower())
@@ -305,7 +305,7 @@ def list_models_by_capability():
 def generate(model_name, prompt, stream=False, **kwargs):
     """Generate text using a specific model."""
     try:
-        response = ollama_sdk.generate(
+        response = o.generate(
             model=model_name,
             prompt=prompt,
             stream=stream,
@@ -319,7 +319,7 @@ def generate(model_name, prompt, stream=False, **kwargs):
 def chat(model_name, messages, stream=False, **kwargs):
     """Chat with a model."""
     try:
-        response = ollama_sdk.chat(
+        response = o.chat(
             model=model_name,
             messages=messages,
             stream=stream,
@@ -333,7 +333,7 @@ def chat(model_name, messages, stream=False, **kwargs):
 def embeddings(model_name, text, **kwargs):
     """Generate embeddings using an embedding model."""
     try:
-        response = ollama_sdk.embeddings(
+        response = o.embeddings(
             model=model_name,
             prompt=text,
             **kwargs

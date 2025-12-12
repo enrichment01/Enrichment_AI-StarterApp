@@ -710,11 +710,6 @@ with tabs[9]:
     # Configuration
     with st.sidebar:
         st.markdown("### Configuration")
-        selected_model = st.selectbox(
-            "Model:",
-            ["llama2", "mistral", "codellama", "phi"],
-            key="complete_model"
-        )
 
         selected_model = add_select_model()
 
