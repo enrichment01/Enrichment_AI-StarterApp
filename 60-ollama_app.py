@@ -1,3 +1,5 @@
+#!/usr/bin/env streamlit run
+
 import streamlit as st
 import requests
 
