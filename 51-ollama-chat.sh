@@ -1,0 +1,1 @@
+streamlit run 51-ollama-chat.py
