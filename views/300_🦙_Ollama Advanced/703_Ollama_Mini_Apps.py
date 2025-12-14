@@ -19,6 +19,12 @@ tabs = st.tabs([
     "Full Apps"
 ])
 
+def get_tab_index(name, tabs):
+    try:
+        return tabs.index(name)
+    except ValueError:
+        return -1
+    
 # Step 1: Chat Interface Basics
 with tabs[0]:
     st.header("Step 1: Chat Interface Basics")
