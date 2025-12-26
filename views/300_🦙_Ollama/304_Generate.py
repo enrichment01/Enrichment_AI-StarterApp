@@ -15,7 +15,7 @@ import ollama
 
 # Generate text
 response = ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='Write a haiku about coding'
 )
 

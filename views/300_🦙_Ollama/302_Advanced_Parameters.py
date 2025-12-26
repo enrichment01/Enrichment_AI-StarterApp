@@ -15,7 +15,7 @@ import streamlit as st
 import ollama
 
 response = ollama.chat(
-    model='phi4-mini',
+    model='gemma3:1b',
     messages=[
         {
             'role': 'user',

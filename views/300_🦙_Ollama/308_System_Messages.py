@@ -14,7 +14,7 @@ with col1:
 import ollama
 
 response = ollama.chat(
-    model='phi4-mini',
+    model='gemma3:1b',
     messages=[
         {
             'role': 'system',

@@ -21,7 +21,7 @@ st.write("**1. num_ctx (Context Window)**")
 st.code("""
 # Smaller context = faster, less memory
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     options={'num_ctx': 2048}  # Default is 4096
 )
@@ -36,7 +36,7 @@ st.write("**2. num_predict (Max Output Length)**")
 st.code("""
 # Limit response length
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     options={'num_predict': 100}  # Max 100 tokens
 )
@@ -51,7 +51,7 @@ st.write("**3. num_thread (CPU Threads)**")
 st.code("""
 # Adjust CPU thread usage
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     options={'num_thread': 8}  # Use 8 CPU threads
 )
@@ -91,9 +91,9 @@ st.subheader("💾 Memory Optimization")
 st.write("**1. Model Selection**")
 memory_models = {
     "phi (2.7B)": "~2 GB RAM",
-    "phi4-mini (7B)": "~4 GB RAM",
-    "phi4-mini (13B)": "~8 GB RAM",
-    "phi4-mini (70B)": "~40 GB RAM"
+    "gemma3:1b (7B)": "~4 GB RAM",
+    "gemma3:1b (13B)": "~8 GB RAM",
+    "gemma3:1b (70B)": "~40 GB RAM"
 }
 
 for model, ram in memory_models.items():
@@ -116,21 +116,21 @@ st.code("""
 
 # Quick unload (keep for 1 minute)
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     keep_alive='1m'
 )
 
 # Immediate unload
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     keep_alive='0'
 )
 
 # Keep forever (until restart)
 ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='...',
     keep_alive='-1'
 )
@@ -143,7 +143,7 @@ st.write("**1. Choose Faster Models**")
 speed_comparison = {
     "phi": "⚡⚡⚡⚡⚡ (fastest)",
     "mistral": "⚡⚡⚡⚡",
-    "phi4-mini": "⚡⚡⚡",
+    "gemma3:1b": "⚡⚡⚡",
     "llama3": "⚡⚡⚡",
     "codellama": "⚡⚡⚡"
 }
@@ -175,7 +175,7 @@ st.code("""
 # Improves perceived performance
 
 stream = ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='Tell me a story',
     stream=True
 )
@@ -215,7 +215,7 @@ from concurrent.futures import ThreadPoolExecutor
 def process_prompt(prompt):
     '''Process single prompt'''
     return ollama.generate(
-        model='phi4-mini',
+        model='gemma3:1b',
         prompt=prompt,
         options={'num_ctx': 2048}
     )
@@ -249,7 +249,7 @@ from functools import lru_cache
 
 # Simple cache
 @st.cache_data(ttl=3600)  # Cache for 1 hour
-def get_ai_response(prompt, model='phi4-mini'):
+def get_ai_response(prompt, model='gemma3:1b'):
     '''Cached AI responses'''
     response = ollama.generate(
         model=model,
@@ -266,7 +266,7 @@ answer = get_ai_response("What is Python?")
 @lru_cache(maxsize=100)
 def cached_generate(prompt):
     return ollama.generate(
-        model='phi4-mini',
+        model='gemma3:1b',
         prompt=prompt
     )['response']
 """
@@ -305,7 +305,7 @@ def benchmark_model(model, prompt, iterations=5):
 
 # Compare models
 benchmark_model('phi', 'Explain Python in one sentence')
-benchmark_model('phi4-mini', 'Explain Python in one sentence')
+benchmark_model('gemma3:1b', 'Explain Python in one sentence')
 """
 
 st.code(monitoring_code, language="python")
@@ -389,7 +389,7 @@ st.info("""
 - Monitor RAM usage
 
 **Quality Optimization:**
-- Use better models (llama3 > phi4-mini)
+- Use better models (llama3 > gemma3:1b)
 - Increase context for long conversations
 - Tune temperature for your task
 - Test with real-world examples

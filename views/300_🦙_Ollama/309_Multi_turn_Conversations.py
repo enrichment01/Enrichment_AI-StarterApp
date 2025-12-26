@@ -27,7 +27,7 @@ messages.append({
 })
 
 response = ollama.chat(
-    model='phi4-mini',
+    model='gemma3:1b',
     messages=messages
 )
 
@@ -44,7 +44,7 @@ messages.append({
 })
 
 response = ollama.chat(
-    model='phi4-mini',
+    model='gemma3:1b',
     messages=messages
 )
 
@@ -193,7 +193,7 @@ messages = [
 
 # User asks questions
 messages.append({'role': 'user', 'content': 'How do I use lists?'})
-response = ollama.chat(model='phi4-mini', messages=messages)
+response = ollama.chat(model='gemma3:1b', messages=messages)
 messages.append(response['message'])
 
 # Pattern 2: Conversation reset
@@ -217,7 +217,7 @@ st.subheader("⚠️ Error Handling")
 error_example = """
 try:
     response = ollama.chat(
-        model='phi4-mini',
+        model='gemma3:1b',
         messages=messages
     )
     messages.append(response['message'])
@@ -226,7 +226,7 @@ except Exception as e:
     if 'context length' in str(e):
         # Too many messages, trim history
         messages = messages[-5:]
-        response = ollama.chat(model='phi4-mini', messages=messages)
+        response = ollama.chat(model='gemma3:1b', messages=messages)
     else:
         print(f"Error: {e}")
 """

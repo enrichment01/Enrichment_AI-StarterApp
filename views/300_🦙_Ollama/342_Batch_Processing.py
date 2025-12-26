@@ -34,7 +34,7 @@ for i, prompt in enumerate(prompts):
     print(f"Processing {i+1}/{len(prompts)}...")
     
     response = ollama.generate(
-        model='phi4-mini',
+        model='gemma3:1b',
         prompt=prompt
     )
     
@@ -60,7 +60,7 @@ import ollama
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
-def process_single(prompt, model='phi4-mini'):
+def process_single(prompt, model='gemma3:1b'):
     '''Process a single prompt'''
     response = ollama.generate(
         model=model,
@@ -106,7 +106,7 @@ progress_code = """
 import ollama
 from tqdm import tqdm
 
-def batch_process_with_progress(prompts, model='phi4-mini'):
+def batch_process_with_progress(prompts, model='gemma3:1b'):
     '''Process with progress bar'''
     
     results = []
@@ -137,7 +137,7 @@ for i, prompt in enumerate(prompts):
     status_text.text(f"Processing {i+1}/{len(prompts)}")
     
     response = ollama.generate(
-        model='phi4-mini',
+        model='gemma3:1b',
         prompt=prompt
     )
     results.append(response['response'])
@@ -156,7 +156,7 @@ error_handling = """
 import ollama
 import time
 
-def robust_batch_process(prompts, model='phi4-mini', max_retries=3):
+def robust_batch_process(prompts, model='gemma3:1b', max_retries=3):
     '''Process batch with retry logic'''
     
     results = []
@@ -212,7 +212,7 @@ st.subheader("🌊 Streaming Batch Processing")
 streaming_batch = """
 import ollama
 
-def stream_batch(prompts, model='phi4-mini'):
+def stream_batch(prompts, model='gemma3:1b'):
     '''Stream results for each prompt in batch'''
     
     for i, prompt in enumerate(prompts):
@@ -269,7 +269,7 @@ def analyze_sentiment(text):
     '''
     
     response = ollama.generate(
-        model='phi4-mini',
+        model='gemma3:1b',
         prompt=prompt,
         options={'num_predict': 10}
     )
@@ -321,7 +321,7 @@ def find_optimal_batch_size(prompts, sizes=[1, 2, 4, 8, 16]):
 
 st.write("**2. Chunking Large Batches**")
 st.code("""
-def process_in_chunks(prompts, chunk_size=50, model='phi4-mini'):
+def process_in_chunks(prompts, chunk_size=50, model='gemma3:1b'):
     '''Process large batch in chunks'''
     
     all_results = []
@@ -368,7 +368,7 @@ def cached_batch_process(prompts, cache_dir='cache'):
         else:
             # Generate and cache
             response = ollama.generate(
-                model='phi4-mini',
+                model='gemma3:1b',
                 prompt=prompt
             )
             result = response['response']
@@ -443,7 +443,7 @@ import pandas as pd
 from tqdm import tqdm
 
 class BatchProcessor:
-    def __init__(self, model='phi4-mini', max_workers=4):
+    def __init__(self, model='gemma3:1b', max_workers=4):
         self.model = model
         self.max_workers = max_workers
     
@@ -483,7 +483,7 @@ class BatchProcessor:
         return results
 
 # Usage
-processor = BatchProcessor(model='phi4-mini', max_workers=4)
+processor = BatchProcessor(model='gemma3:1b', max_workers=4)
 
 items = [
     {'id': 1, 'prompt': 'Question 1'},

@@ -16,7 +16,7 @@ that a language model can process at once. This includes both the input
 st.subheader("📊 Model Context Limits")
 
 models = {
-    "phi4-mini": "4096 tokens (~3000 words)",
+    "gemma3:1b": "4096 tokens (~3000 words)",
     "mistral": "8192 tokens (~6000 words)",
     "codellama": "16384 tokens (~12000 words)",
     "llama3": "8192 tokens (~6000 words)"
@@ -74,7 +74,7 @@ MAX_MESSAGES = 10
 messages.append({'role': 'user', 'content': user_input})
 messages = messages[-MAX_MESSAGES:]  # Trim to last N
 
-response = ollama.chat(model='phi4-mini', messages=messages)
+response = ollama.chat(model='gemma3:1b', messages=messages)
 """
 st.code(strategy1, language="python")
 
@@ -115,7 +115,7 @@ def summarize_history(messages):
     }
     
     summary = ollama.chat(
-        model='phi4-mini',
+        model='gemma3:1b',
         messages=[summary_prompt]
     )
     
@@ -167,7 +167,7 @@ if sample_text:
     
     # Calculate percentage of different model limits
     st.write("**Percentage of model context windows:**")
-    for model, limit in {"phi4-mini": 4096, "mistral": 8192}.items():
+    for model, limit in {"gemma3:1b": 4096, "mistral": 8192}.items():
         limit_num = int(limit)
         percentage = (estimated_tokens / limit_num) * 100
         st.progress(min(percentage / 100, 1.0), text=f"{model}: {percentage:.1f}%")

@@ -19,7 +19,7 @@ st.subheader("📝 Basic Modelfile Structure")
 
 basic_modelfile = """
 # Start from an existing model
-FROM phi4-mini
+FROM gemma3:1b
 
 # Set the temperature (creativity)
 PARAMETER temperature 0.8
@@ -78,7 +78,7 @@ for directive, description in directives.items():
 st.subheader("💼 Example: Python Tutor")
 
 python_tutor = """
-FROM phi4-mini
+FROM gemma3:1b
 
 # System prompt defining the role
 SYSTEM '''
@@ -205,7 +205,7 @@ st.code(manage_code, language="bash")
 st.subheader("🎯 Advanced: Custom Templates")
 
 template_example = """
-FROM phi4-mini
+FROM gemma3:1b
 
 # Custom prompt template
 TEMPLATE '''

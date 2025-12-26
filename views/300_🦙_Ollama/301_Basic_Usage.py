@@ -12,7 +12,7 @@ import ollama
 
 # Simple chat
 response = ollama.chat(
-    model='phi4-mini',
+    model='gemma3:1b',
     messages=[
         {
             'role': 'user',
@@ -28,7 +28,7 @@ print(response['message']['content'])
 with col2:
     st.markdown("""
     - `ollama.chat()` is the main method for chat completions
-    - `model` specifies which model to use (e.g., 'phi4-mini', 'mistral')
+    - `model` specifies which model to use (e.g., 'gemma3:1b', 'mistral')
     - `messages` is a list of message objects
     - Each message has a `role` ('user', 'assistant', or 'system')
     - Response contains the model's reply in `response['message']['content']`

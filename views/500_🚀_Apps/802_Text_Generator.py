@@ -26,7 +26,7 @@ with col1:
     with col_a:
         model = st.selectbox(
             "Select Model:",
-            ["phi4-mini", "mistral", "codellama", "phi"],
+            ["gemma3:1b", "mistral", "codellama", "phi"],
             key="gen_model"
         )
     
@@ -81,7 +81,7 @@ with col2:
     - 0.8-2.0: Creative, random
     
     **Models:**
-    - phi4-mini: General purpose
+    - gemma3:1b: General purpose
     - mistral: Fast, efficient
     - codellama: For code
     - phi: Lightweight

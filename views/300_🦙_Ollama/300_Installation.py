@@ -11,6 +11,6 @@ st.markdown("**2. Install Python SDK:**")
 st.code("pip install ollama", language="bash")
 
 st.markdown("**3. Pull a model:**")
-st.code("ollama pull phi4-mini", language="bash")
+st.code("ollama pull gemma3:1b", language="bash")
 
 st.info("💡 Make sure Ollama is running before using the SDK!")

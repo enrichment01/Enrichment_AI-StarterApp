@@ -21,7 +21,7 @@ import ollama
 
 # Generate response
 response = ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='What is Python?'
 )
 
@@ -59,7 +59,7 @@ Output format:
 }
 '''
 
-response = ollama.generate(model='phi4-mini', prompt=prompt)
+response = ollama.generate(model='gemma3:1b', prompt=prompt)
 
 # Parse JSON from response
 try:
@@ -93,7 +93,7 @@ list_code = """
 # Request a list
 prompt = "List 5 programming languages. Output only the names, one per line."
 
-response = ollama.generate(model='phi4-mini', prompt=prompt)
+response = ollama.generate(model='gemma3:1b', prompt=prompt)
 text = response['response']
 
 # Parse into list
@@ -149,7 +149,7 @@ def extract_json_from_response(response_text):
 
 # Usage
 response = ollama.generate(
-    model='phi4-mini',
+    model='gemma3:1b',
     prompt='Extract person details as JSON: "Alice, 25, Engineer"'
 )
 
@@ -318,7 +318,7 @@ def safe_parse_json(response_text, default=None):
 # Usage with retry logic
 max_retries = 3
 for attempt in range(max_retries):
-    response = ollama.generate(model='phi4-mini', prompt=prompt)
+    response = ollama.generate(model='gemma3:1b', prompt=prompt)
     data = safe_parse_json(response['response'])
     
     if data:
